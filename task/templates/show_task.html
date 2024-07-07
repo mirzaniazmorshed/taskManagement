@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Task Management | Show Task</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Show your Task</h1>
+    <div class="d-flex">
+        {% for task in data %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Task Id: {{task.id}}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">{{task.date}}</h6>
+              <p class="card-text">{{task.description}}</p>
+              {% for cate in task.category.all%}
+              <a href="#" class="card-link">{{cate.name}}</a>
+              {% endfor %}
+            </div>
+            <div class="card-footer">
+                {% if task.is_completed %}
+                 <h4>Completed</h4>
+                {% else %}
+                <a href="{% url 'edit_task' task.id%}" class="btn btn-warning">edit</a>
+                <a href="{% url 'delete_task' task.id%}" class="btn btn-warning">delete</a>
+                {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
